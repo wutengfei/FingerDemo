@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import com.bean.fingerBean;
@@ -60,6 +63,20 @@ public class MainActivity extends Activity {
 
     private String mBase64;
     private byte[] mBytes;
+    private boolean isOpenFinger =false;
+    private Handler fingerHandler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    Bitmap bitmap = (Bitmap) msg.obj;
+                    mIvFinger.setImageBitmap(bitmap);
+//                    getFingerImage();
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +168,13 @@ public class MainActivity extends Activity {
         }
         mTvStatus.setText("设备已关闭");
         isOpen = false;
+
+        mTvCompared.setText("");
+        FpCommon.stopGetImge();
+        fpBitmap = null;
+        mIvFinger.setImageBitmap(null);
+        isOpenFinger =false;
+
     }
 
     /* 获取图片特征值 */
@@ -416,9 +440,40 @@ public class MainActivity extends Activity {
             return;
         }
         mIvFinger.setImageBitmap(null);
-        new MyAsyncTask().execute(TASK_GET_PICTURE);
+//        new MyAsyncTask().execute(TASK_GET_PICTURE);
         mTvCompared.setTextColor(Color.RED);
         mTvCompared.setText("请按压指纹...");
+        isOpenFinger = true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (isOpenFinger) {
+                    fpBitmap = FpCommon.getFpImage();
+                    if (fpBitmap != null) {
+                        Message message = Message.obtain();
+                        message.what = 1;
+                        message.obj = fpBitmap;
+                        fingerHandler.sendMessage(message);
+                    }
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+
+//        FpCommon.stopGetImge();
+//        if (fpBitmap == null) {
+//            fpBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_failure);
+//
+//        } else {
+//            mIvFinger.setImageBitmap(fpBitmap);
+//        }
+//        mTvCompared.setText("");
+//        fpBitmap = null;
     }
 
     /* 指纹对象 */
