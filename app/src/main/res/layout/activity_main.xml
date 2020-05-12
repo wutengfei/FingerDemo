@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Match"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        style="@style/AutoMatch"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="openFinger"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="打开指纹" />
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="closeFinger"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="关闭指纹" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                style="@style/Wrap"
+                android:layout_marginEnd="30dp"
+                android:text="设置匹配度"
+                android:textColor="#333" />
+
+            <EditText
+                android:id="@+id/et_match_value"
+                style="@style/MatchWrap"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/rg_color"
+            style="@style/MatchWrap"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="黑色" />
+
+            <RadioButton
+                android:id="@+id/rb_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="红色" />
+
+        </RadioGroup>
+
+        <Button
+            style="@style/MatchWrap"
+            android:onClick="getFeatureByImage"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="获取图片特征值"
+            android:visibility="gone" />
+
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:visibility="gone">
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="toBase64"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="转Base64" />
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="getFeatureByBase64"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="获取Base64特征值" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone">
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="toBytes"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="转Byte" />
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="getFeatureByBytes"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="获取Byte特征值" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="getFeature1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="获取特征值1" />
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="getFeature2"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="获取特征值2" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone">
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="comparedFingerByImage"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="图片与指纹比对" />
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="comparedFingerAndBase64"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Base64与指纹比对" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="comparedFingerWithBytes"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Bytes与指纹比对"
+                android:visibility="gone" />
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="comparedFinger"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="指纹与指纹比对" />
+        </LinearLayout>
+
+        <Button
+            style="@style/MatchWrap"
+            android:layout_marginBottom="10dp"
+            android:onClick="getCompareValue"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="获取指纹比对值"
+            android:visibility="gone" />
+
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="getFingerQuality"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="获取指纹质量"
+                android:visibility="gone" />
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="getFingerImage"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="获取指纹图像" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone">
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="getFingerObj0"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="获取指纹对象 指令0" />
+
+            <Button
+                style="@style/AutoMatch"
+                android:onClick="getFingerObj1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="获取指纹对象 指令1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_weight="2"
+        android:background="@drawable/bg_666_border"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout style="@style/MatchWrap">
+
+            <LinearLayout
+                android:id="@+id/left_ll"
+                style="@style/Wrap"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Wrap"
+                    android:text="设备状态："
+                    android:textColor="#333"
+                    android:textSize="20sp" />
+
+                <TextView
+                    style="@style/Wrap"
+                    android:text="Base64特征："
+                    android:textColor="#333"
+                    android:visibility="gone"
+                    android:textSize="20sp" />
+
+                <TextView
+                    style="@style/Wrap"
+                    android:text="Bytes特征："
+                    android:textColor="#333"
+                    android:visibility="gone"
+                    android:textSize="20sp" />
+
+                <TextView
+                    style="@style/Wrap"
+                    android:text="图片特征："
+                    android:textColor="#333"
+                    android:visibility="gone"
+                    android:textSize="20sp" />
+
+                <TextView
+                    style="@style/Wrap"
+                    android:text="指纹特征1："
+                    android:textColor="#333"
+                    android:textSize="20sp" />
+
+                <TextView
+                    style="@style/Wrap"
+                    android:text="指纹特征2："
+                    android:textColor="#333"
+                    android:textSize="20sp" />
+
+                <TextView
+                    style="@style/Wrap"
+                    android:text="指纹对比："
+                    android:textColor="#333"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Wrap"
+                android:layout_toEndOf="@+id/left_ll"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    style="@style/Wrap"
+                    android:text="设备已关闭"
+                    android:textColor="#333"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_feature64"
+                    style="@style/Wrap"
+                    android:text="未获取"
+                    android:textColor="#333"
+                    android:visibility="gone"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_feature_byte"
+                    style="@style/Wrap"
+                    android:text="未获取"
+                    android:textColor="#333"
+                    android:visibility="gone"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_feature0"
+                    style="@style/Wrap"
+                    android:text="未获取"
+                    android:textColor="#333"
+                    android:visibility="gone"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_feature1"
+                    style="@style/Wrap"
+                    android:text="未获取"
+                    android:textColor="#333"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_feature2"
+                    style="@style/Wrap"
+                    android:text="未获取"
+                    android:textColor="#333"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_compared"
+                    style="@style/Wrap"
+                    android:text="未比对"
+                    android:textColor="#333"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_result"
+            style="@style/Wrap"
+            android:layout_gravity="center_horizontal|bottom" />
+
+    </FrameLayout>
+</LinearLayout>
