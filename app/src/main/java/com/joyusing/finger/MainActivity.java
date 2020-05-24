@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -30,6 +31,9 @@ import com.jy.finger.Common.Finger;
 import com.jy.finger.Common.FpCommon;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 
 public class MainActivity extends Activity {
@@ -163,6 +167,24 @@ public class MainActivity extends Activity {
 
     /* 关闭指纹设备 */
     public void closeFinger(View view) {
+        mIvFinger.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(mIvFinger.getDrawingCache());
+        mIvFinger.setDrawingCacheEnabled(false);
+        if (bitmap!=null){
+            ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+            File file=new File(Environment.getExternalStorageDirectory()+"/Finger.png");
+            try {
+                FileOutputStream fos=new FileOutputStream(file);
+                fos.write(byteArrayOutputStream.toByteArray());
+                fos.flush();
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
         if (isOpen) {
             FpCommon.closeFpModule();
         }
